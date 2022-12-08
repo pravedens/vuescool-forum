@@ -5,12 +5,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../components/PageHome')
+    component: () => import('../pages/Home')
   },
   {
     path: '/thread/:id',
     name: 'ThreadShow',
-    component: () => import('../components/PageThreadShow'),
+    component: () => import('../pages/ThreadShow'),
     props: true,
     beforeEnter (to, from, next) {
       const threadExists = sourceData.threads.find(thread => thread.id === to.params.id)
@@ -29,7 +29,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: () => import('../components/PageNotFound')
+    component: () => import('../pages/NotFound')
   }
 ]
 
