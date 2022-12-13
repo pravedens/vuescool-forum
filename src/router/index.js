@@ -8,6 +8,12 @@ const routes = [
     component: () => import('../pages/Home')
   },
   {
+    path: '/forum/:id',
+    name: 'Forum',
+    component: () => import('../pages/Forum'),
+    props: true
+  },
+  {
     path: '/thread/:id',
     name: 'ThreadShow',
     component: () => import('../pages/ThreadShow'),
