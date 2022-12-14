@@ -8,6 +8,12 @@ const routes = [
     component: () => import('../pages/Home')
   },
   {
+    path: '/category/:id',
+    name: 'Category',
+    component: () => import('../pages/Category.vue'),
+    props: true
+  },
+  {
     path: '/forum/:id',
     name: 'Forum',
     component: () => import('../pages/Forum'),
