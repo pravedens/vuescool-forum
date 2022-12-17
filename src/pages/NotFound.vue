@@ -4,13 +4,10 @@
     <router-link :to="{name: 'Home'}">Read some cool threads</router-link>
   </div>
 </template>
-
 <script>
 export default {
   name: 'PageNotFound'
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

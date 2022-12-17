@@ -1,16 +1,11 @@
 <template>
   <div class="col-large push-top">
     <h1>{{ thread.title }}</h1>
-
     <post-list :posts="threadPosts" />
-
     <post-editor @save="addPost"/>
-
   </div>
 </template>
-
 <script>
-import sourceData from '@/data.json'
 import PostList from '@/components/PostList'
 import PostEditor from '@/components/PostEditor'
 export default {
@@ -25,13 +20,13 @@ export default {
       type: String
     }
   },
-  data () {
-    return {
-      threads: sourceData.threads,
-      posts: sourceData.posts
-    }
-  },
   computed: {
+    threads () {
+      return this.$store.state.threads
+    },
+    posts () {
+      return this.$store.state.posts
+    },
     thread () {
       return this.threads.find(thread => thread.id === this.id)
     },
@@ -45,14 +40,10 @@ export default {
         ...eventData.post,
         threadId: this.id
       }
-
-      this.posts.push(post)
-      this.thread.posts.push(post.id)
+      this.$store.dispatch('createPost', post)
     }
   }
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

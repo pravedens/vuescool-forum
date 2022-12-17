@@ -41,23 +41,22 @@
 </template>
 
 <script>
-import sourceData from '@/data.json'
-import AppDate from '@/components/AppDate'
+
 export default {
   name: 'ThreadList',
+
   props: {
     threads: {
       type: Array,
       required: true
     }
   },
-  components: {
-    AppDate
-  },
-  data () {
-    return {
-      posts: sourceData.posts,
-      users: sourceData.users
+  computed: {
+    posts () {
+      return this.$store.state.posts
+    },
+    users () {
+      return this.$store.state.users
     }
   },
   methods: {
@@ -71,6 +70,4 @@ export default {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
