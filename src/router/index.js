@@ -51,6 +51,12 @@ const routes = [
     }
   },
   {
+    path: '/form/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: () => import('../pages/ThreadCreate'),
+    props: true
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../pages/NotFound')
