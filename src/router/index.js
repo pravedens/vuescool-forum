@@ -51,9 +51,15 @@ const routes = [
     }
   },
   {
-    path: '/form/:forumId/thread/create',
+    path: '/forum/:forumId/thread/create',
     name: 'ThreadCreate',
     component: () => import('../pages/ThreadCreate'),
+    props: true
+  },
+  {
+    path: '/thread/:id/edit',
+    name: 'ThreadEdit',
+    component: () => import('../pages/ThreadEdit'),
     props: true
   },
   {
