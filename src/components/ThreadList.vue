@@ -18,7 +18,7 @@
 
           <div class="activity">
             <p class="replies-count">
-              {{ thread.posts.length }}
+              {{ thread.repliesCount }} replies
             </p>
 
             <img class="avatar-medium"
