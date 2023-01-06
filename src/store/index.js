@@ -87,22 +87,38 @@ export default createStore({
       commit('setItem', { resource: 'users', item: user })
     },
     fetchThread ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'threads', id, emoji: 'Thread' })
+      return dispatch('fetchItem', { resource: 'threads', id, emoji: '📄' })
     },
     fetchUser ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'users', id, emoji: 'User' })
+      return dispatch('fetchItem', { resource: 'users', id, emoji: '🙋' })
     },
     fetchPost ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'posts', id, emoji: 'Post' })
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: '💬' })
+    },
+    fetchAllCategories ({ commit }) {
+      console.log('Fire', 'user', 'all')
+      return new Promise((resolve) => {
+        firebase.firestore().collection('categories').onSnapshot((querySnapshot) => {
+          const categories = querySnapshot.docs.map(doc => {
+            const item = { id: doc.id, ...doc.data() }
+            commit('setItem', { resource: 'categories', item })
+            return item
+          })
+          resolve(categories)
+        })
+      })
     },
     fetchThreads ({ dispatch }, { ids }) {
-      return dispatch('fetchItems', { resource: 'threads', ids, emoji: 'Threads' })
+      return dispatch('fetchItems', { resource: 'threads', ids, emoji: '📄' })
+    },
+    fetchForums ({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'forums', ids, emoji: '🏁' })
     },
     fetchUsers ({ dispatch }, { ids }) {
-      return dispatch('fetchItems', { resource: 'users', ids, emoji: 'Users' })
+      return dispatch('fetchItems', { resource: 'users', ids, emoji: '🙋' })
     },
     fetchPosts ({ dispatch }, { ids }) {
-      return dispatch('fetchItems', { resource: 'posts', ids, emoji: 'Posts' })
+      return dispatch('fetchItems', { resource: 'posts', ids, emoji: '💬' })
     },
     fetchItem ({ state, commit }, { id, emoji, resource }) {
       console.log('Hello', emoji, id)
