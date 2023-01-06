@@ -87,13 +87,22 @@ export default createStore({
       commit('setItem', { resource: 'users', item: user })
     },
     fetchThread ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'threads', id, emoji: 'Hello1' })
+      return dispatch('fetchItem', { resource: 'threads', id, emoji: 'Thread' })
     },
     fetchUser ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'users', id, emoji: 'Hello2' })
+      return dispatch('fetchItem', { resource: 'users', id, emoji: 'User' })
     },
     fetchPost ({ dispatch }, { id }) {
-      return dispatch('fetchItem', { resource: 'posts', id, emoji: 'Hello3' })
+      return dispatch('fetchItem', { resource: 'posts', id, emoji: 'Post' })
+    },
+    fetchThreads ({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'threads', ids, emoji: 'Threads' })
+    },
+    fetchUsers ({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'users', ids, emoji: 'Users' })
+    },
+    fetchPosts ({ dispatch }, { ids }) {
+      return dispatch('fetchItems', { resource: 'posts', ids, emoji: 'Posts' })
     },
     fetchItem ({ state, commit }, { id, emoji, resource }) {
       console.log('Hello', emoji, id)
@@ -104,6 +113,9 @@ export default createStore({
           resolve(item)
         })
       })
+    },
+    fetchItems ({ dispatch }, { ids, resource, emoji }) {
+      return Promise.all(ids.map(id => dispatch('fetchItem', { id, resource, emoji })))
     }
   },
   mutations: {
