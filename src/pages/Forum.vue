@@ -1,5 +1,5 @@
 <template>
-    <div class="col-full push-top">
+    <div v-if="forum" class="col-full push-top">
       <div class="forum-header">
         <div class="forum-details">
           <h1>{{ forum.name }}</h1>
@@ -19,6 +19,7 @@
 </template>
 <script>
 import ThreadList from '@/components/ThreadList'
+import { findById } from '@/helpers'
 export default {
   name: 'PageForum',
   components: { ThreadList },
@@ -30,11 +31,17 @@ export default {
   },
   computed: {
     forum () {
-      return this.$store.state.forums.find(forum => forum.id === this.id)
+      return findById(this.$store.state.forums, this.id)
     },
     threads () {
+      if (!this.forum) return []
       return this.forum.threads.map(threadId => this.$store.getters.thread(threadId))
     }
+  },
+  async created () {
+    const forum = await this.$store.dispatch('fetchForum', { id: this.id })
+    const threads = await this.$store.dispatch('fetchThreads', { ids: forum.threads })
+    this.$store.dispatch('fetchUsers', { ids: threads.map(thread => thread.userId) })
   }
 }
 </script>
